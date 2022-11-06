@@ -17,6 +17,11 @@ const app = Vue.createApp({
         addToCart() {
             this.cart += 1
         },
+        removeItem() {
+            if (this.cart > 0) {
+                this.cart -= 1
+            }
+        },
         updateImage(variantImage) {
             this.image = variantImage
         }
