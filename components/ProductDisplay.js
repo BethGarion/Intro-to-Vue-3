@@ -3,6 +3,9 @@ app.component('product-display', {
     premium: {
       type: Boolean,
       required: true
+    },
+    cart: {
+      type: Array,
     }
   },
   template: 
@@ -39,6 +42,15 @@ app.component('product-display', {
           v-on:click="addToCart">
           Add to Cart
         </button>
+
+        <button 
+          class="button" 
+          :class="{ disabledButton: this.cart.length == 0 }" 
+          :disabled="this.cart.length == 0" 
+          v-on:click="removeItem">
+          Remove Item
+        </button>
+
       </div>
     </div>
   </div>`,
@@ -56,7 +68,10 @@ app.component('product-display', {
   },
   methods: {
       addToCart() {
-          this.cart += 1
+          this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
+      },
+      removeItem() {
+          this.$emit('remove-item', this.variants[this.selectedVariant].id)
       },
       updateVariant(index) {
           this.selectedVariant = index
